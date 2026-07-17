@@ -12,8 +12,6 @@ A live cryptocurrency dashboard built with Python and Streamlit that fetches rea
 - Clean and interactive Streamlit interface
 - Formatted live data table
 
----
-
 ## Technologies Used
 
 - Python
@@ -21,8 +19,6 @@ A live cryptocurrency dashboard built with Python and Streamlit that fetches rea
 - Pandas
 - Requests
 - CoinGecko API
-
----
 
 ## Project Structure
 
@@ -36,8 +32,6 @@ Real-Time-Data-Analytics-Dashboard/
     └── dashboard.png
 
 ```
-
----
 
 ## Installation
 
@@ -65,21 +59,15 @@ Run the application
 streamlit run app.py
 ```
 
----
-
 ## Dashboard Preview
 
 ![Dashboard](images/dashboard.png)
-
----
 
 ## API Used
 
 CoinGecko API
 
 The dashboard retrieves live cryptocurrency prices directly from the CoinGecko public API.
-
----
 
 ## Learning Outcomes
 
