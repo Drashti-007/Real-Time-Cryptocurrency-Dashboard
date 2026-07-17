@@ -38,13 +38,13 @@ Real-Time-Data-Analytics-Dashboard/
 Clone the repository
 
 ```bash
-git clone https://github.com/Drashti-007/Real-Time-Data-Analytics-Dashboard.git
+git clone https://github.com/Drashti-007/Real-Time-Cryptocurrency-Dashboard.git
 ```
 
 Go into the project
 
 ```bash
-cd Real-Time-Data-Analytics-Dashboard
+cd Real-Time-Cryptocurrency-Dashboard
 ```
 
 Install dependencies
