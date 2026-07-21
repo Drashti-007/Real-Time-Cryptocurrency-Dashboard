@@ -17,15 +17,39 @@ currency = st.sidebar.selectbox(
     ["usd", "inr", "eur", "gbp"]
 )
 
+available_coins = {
+    "Bitcoin": "bitcoin",
+    "Ethereum": "ethereum",
+    "Solana": "solana",
+    "Dogecoin": "dogecoin",
+    "Cardano": "cardano",
+    "Litecoin": "litecoin",
+    "Ripple (XRP)": "ripple",
+    "Binance Coin": "binancecoin"
+}
+
+selected_coins = st.sidebar.multiselect(
+    "Select Crytocurrencies",
+    list(available_coins.keys()),
+    default=["Bitcoin", "Ethereum", "Solana", "Dogecoin"]
+)
+
+coin_ids = ",".join(
+    available_coins[coin]
+    for coin in selected_coins
+)
+
 st_autorefresh(interval=30000, key="crypto_refresh")
 
 st.title("📈 Live Cryptocurrency Dashboard")
 st.write("Real-time cryptocurrency prices using the CoinGecko API")
 
-url = f"https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,dogecoin&vs_currencies={currency}"
+url = f"https://api.coingecko.com/api/v3/simple/price?ids={coin_ids}&vs_currencies={currency}"
 
 response = requests.get(url)
-
+if st.sidebar.button("🔄 Refresh Data"):
+    st.cache_data.clear()
+    
 if response.status_code == 200:
     st.success("🟢 Connected to CoinGecko API")
 else:
@@ -39,9 +63,10 @@ current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 crypto_names = []
 crypto_prices = []
 
-for crypto in data:
-    crypto_names.append(crypto.capitalize())
-    crypto_prices.append(data[crypto][currency])
+for coin in selected_coins:
+    coin_id = available_coins[coin]
+    crypto_names.append(coin)
+    crypto_prices.append(data[coin_id][currency])
 
 df = pd.DataFrame({
     "Cryptocurrency": crypto_names,
@@ -58,19 +83,21 @@ currency_symbols = {
 
 symbol = currency_symbols[currency]
 
-col1, col2, col3, col4 = st.columns(4)
+if not selected_coins:
+    st.warning("Please select at least one cryptocurrency.")
+    st.stop()
 
-with col1:
-    st.metric("₿ Bitcoin", f"{symbol}{data['bitcoin'][currency]:,}")
+cols = st.columns(len(selected_coins))
 
-with col2:
-    st.metric("Ξ Ethereum", f"{symbol}{data['ethereum'][currency]:,}")
+for col, coin in zip(cols, selected_coins):
 
-with col3:
-    st.metric("◎ Solana", f"{symbol}{data['solana'][currency]:,}")
+    coin_id = available_coins[coin]
 
-with col4:
-    st.metric("🐶 Dogecoin", f"{symbol}{data['dogecoin'][currency]}")
+    with col:
+        st.metric(
+            coin,
+            f"{symbol}{data[coin_id][currency]:,.2f}"
+        )
 
 st.write(f"🕒 Last Update: {current_time}")
 
