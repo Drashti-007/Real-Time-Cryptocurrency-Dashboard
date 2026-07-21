@@ -17,6 +17,8 @@ currency = st.sidebar.selectbox(
     ["usd", "inr", "eur", "gbp"]
 )
 
+
+
 available_coins = {
     "Bitcoin": "bitcoin",
     "Ethereum": "ethereum",
@@ -47,21 +49,22 @@ st.write("Real-time cryptocurrency prices using the CoinGecko API")
 url = f"https://api.coingecko.com/api/v3/simple/price?ids={coin_ids}&vs_currencies={currency}"
 
 response = requests.get(url)
+data = response.json()
+
 if st.sidebar.button("🔄 Refresh Data"):
     st.cache_data.clear()
-    
+
 if response.status_code == 200:
     st.success("🟢 Connected to CoinGecko API")
 else:
     st.success("🔴 Unable to connect to CoinGeko API")
     st.stop()
 
-data = response.json()
-
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 crypto_names = []
 crypto_prices = []
+
 
 for coin in selected_coins:
     coin_id = available_coins[coin]
