@@ -61,7 +61,8 @@ streamlit run app.py
 
 ## Dashboard Preview
 
-![Dashboard](images/dashboard.png)
+![Dashboar1](images/dashboard1.png)
+![Dashboard2](images/dashboard2.png)
 
 ## API Used
 
@@ -81,13 +82,4 @@ This project helped me learn:
 - Implementing automatic dashboard refresh
 - Basic error handling for API requests
 
----
 
-## Future Improvements
-
-- Add historical price charts
-- Support more cryptocurrencies
-- Price change indicators (24h)
-- Search functionality
-- Multiple currency support (USD, INR, EUR)
-- Deploy the dashboard online using Streamlit Community Cloud
